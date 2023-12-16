@@ -2,6 +2,14 @@ import { Layout, Card, Text, Button, Divider } from "@ui-kitten/components";
 import { useEffect, useState } from "react";
 import base64 from 'react-native-base64'
 
+import SystemCard from "../Components/Cards/SystemCard";
+import ProcessorCard from "../Components/Cards/ProcessorCard";
+import MemoryCard from "../Components/Cards/MemoryCard";
+import StorageCard from "../Components/Cards/StorageCard";
+import NetworkCard from "../Components/Cards/NetworkCard";
+import { CDivider } from "../Components/Custom/CDivider";
+import { ScrollView } from "react-native";
+
 interface SystemInfo {
     uptime: string
     model: string
@@ -12,7 +20,7 @@ interface SystemInfo {
 
 export default function HomeScreen() {
 
-    const [systemInfo, setSystemInfo] = useState<SystemInfo>()
+    /*const [systemInfo, setSystemInfo] = useState<SystemInfo>()
 
     async function getInfo() {
         const res = await fetch("url here", {
@@ -30,62 +38,28 @@ export default function HomeScreen() {
 
     useEffect(() => {
         getInfo()
-    }, [])
+    }, [])*/
 
     return (
-        <Layout style={{
-            marginVertical: 40,
-            marginHorizontal: 20
-        }}>
-            <Text category='h1' style={{marginBottom: 20}}>TrueControl</Text>
-            
-            <Layout>
-                <Card>
-                    <Text category="h4">System</Text>
-
-                    <Text category="p">
-                        Uptime: {systemInfo ? systemInfo.uptime : "Loading"}
-                    </Text>
-                    
-                    <Text category="p">
-                        Model: {systemInfo ? systemInfo.model : "Loading"}
-                    </Text>
-
-                    <Text category="p">
-                        Cores: {systemInfo ? `${systemInfo.physical_cores}` : "Loading"}
-                        
-                    </Text>
-
-                    <Text category="p">
-                        Threads: {systemInfo ? `${systemInfo.cores}` : "Loading"}
-                    </Text>
-                </Card>
-
-                <Divider style={{marginVertical: 10}}/>
-
-                <Card>
-                    <Text category="h4">CPU</Text>
-                </Card>
-
-                <Divider style={{marginVertical: 10}}/>
-
-                <Card>
-                    <Text category="h4">RAM</Text>
-                </Card>
-
-                <Divider style={{marginVertical: 10}}/>
-
-                <Card>
-                    <Text category="h4">Storage</Text>
-                </Card>
-
-                <Divider style={{marginVertical: 10}}/>
-
-                <Card>
-                    <Text category="h4">Network</Text>
-                </Card>
+        <ScrollView>
+            <Layout style={{
+                marginVertical: 40,
+                marginHorizontal: 20
+            }}>
+                <Text category='h1' style={{marginBottom: 20}}>TrueControl</Text>
                 
+                <Layout>
+                    <SystemCard/>
+                    <CDivider/>
+                    <ProcessorCard/>
+                    <CDivider/>
+                    <MemoryCard/>
+                    <CDivider/>
+                    <StorageCard/>
+                    <CDivider/>
+                    <NetworkCard/>
+                </Layout>
             </Layout>
-        </Layout>
+        </ScrollView>
     )
 }
