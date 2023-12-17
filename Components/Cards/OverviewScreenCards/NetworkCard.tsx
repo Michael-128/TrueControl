@@ -1,5 +1,5 @@
 import { Card, Text, useTheme } from "@ui-kitten/components"
-import { CIconHeader } from "../Typography/CIconHeader"
+import { CIconHeader } from "../../Typography/CIconHeader"
 import { LineChart } from "react-native-chart-kit"
 import { useEffect } from "react"
 

@@ -1,6 +1,6 @@
 import { Card, Text, useTheme } from "@ui-kitten/components"
-import { CIconHeader } from "../Typography/CIconHeader"
-import { CStorageChart } from "../Charts/CStorageChart"
+import { CIconHeader } from "../../Typography/CIconHeader"
+import { CStorageChart } from "../../Charts/CStorageChart"
 import { View } from "react-native"
 
 export default function StorageCard() {

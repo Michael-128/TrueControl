@@ -15,7 +15,7 @@ import { ConnectivityScreen } from './Views/ConnectivityScreen';
 const { Navigator, Screen } = createDrawerNavigator()
 
 const DrawerNavigator = () => {
-  return (<Navigator initialRouteName='Connectivity' drawerContent={props => <CDrawer {...props}/>}>
+  return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewScreen}/>
     <Screen name='Connectivity' component={ConnectivityScreen}/>
   </Navigator>)

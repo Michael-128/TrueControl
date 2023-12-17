@@ -1,9 +1,9 @@
 import { Card, Text, useTheme } from "@ui-kitten/components"
-import { CIconHeader } from "../Typography/CIconHeader"
+import { CIconHeader } from "../../Typography/CIconHeader"
 import { View } from "react-native"
-import { CLabel } from "../Typography/CLabel"
-import { CPieChart } from "../Charts/CPieChart"
-import { CColoredDot } from "../Typography/CColoredDot"
+import { CLabel } from "../../Typography/CLabel"
+import { CPieChart } from "../../Charts/CPieChart"
+import { CColoredDot } from "../../Typography/CColoredDot"
 
 export default function MemoryCard() {
 

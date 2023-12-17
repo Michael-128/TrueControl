@@ -2,52 +2,74 @@ import { Text, Layout, Card, Input, Button } from "@ui-kitten/components";
 import { BaseScreen } from "./BaseScreen";
 import { CDivider } from "../Components/Custom/CDivider";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ConnectionStatus } from "../Types/Enums/ConnectionStatus";
+import { CredentialsCard } from "../Components/Cards/ConnectivityScreenCards/CredentialsCard";
+import { ConnectionStatusCard } from "../Components/Cards/ConnectivityScreenCards/ConnectionsStatusCard";
+import base64 from "react-native-base64";
+import { Storage } from "../Components/Storage/Storage";
 
 export function ConnectivityScreen() {
 
-    const [url, setUrl] = useState("")
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.CONNECTING)
+
+    async function handleSave(url: string, username: string, password: string) {
+        if(await checkConnectivity(url, username, password)) {
+            setConnectionStatus(ConnectionStatus.CONNECTED)
+            Storage.saveCredentials(url, username, password)
+        } else {
+            setConnectionStatus(ConnectionStatus.DISCONNECTED)
+        }
+    }
+
+    async function checkConnectivity(url: string, username: string, password: string) {
+        const authString = "Basic " + base64.encode(username+":"+password)
+
+        const res = await fetch(`${url}/api/v2.0/auth/check_user`, {
+            method: "post",
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                Authorization: authString
+            }
+        })
+
+        try {
+            return await res.json()
+        } catch {
+            return false
+        }        
+    }
+
+    useEffect(() => {
+        async function getStatus() {
+            const credentials = await Storage.getCredentials()
+
+            if(!credentials) {
+                setConnectionStatus(ConnectionStatus.DISCONNECTED)
+                return
+            }
+
+            const connectivity = await checkConnectivity(credentials.url, credentials.username, credentials.password)
+
+            if(connectivity) {
+                setConnectionStatus(ConnectionStatus.CONNECTED)
+                return
+            }
+
+            setConnectionStatus(ConnectionStatus.DISCONNECTED)
+        }
+        getStatus()
+    }, [])
 
     return (
         <BaseScreen>
             <Layout style={{backgroundColor: "transparent"}}>
-                <Card>
-                    <Text category="h3">Connectivity</Text>
-                    <Text category="s1">
-                        Input your TrueNAS credentials here.
-                    </Text>
-
-                    <CDivider/>
-
-                    <Input
-                        placeholder='URL'
-                        value={url}
-                        onChangeText={setUrl}
-                    />
-
-                    <CVerticalSpacer/>
-
-                    <Input
-                        placeholder='Username'
-                        value={username}
-                        onChangeText={setUsername}
-                    />
-
-                    <CVerticalSpacer/>
-
-                    <Input
-                        placeholder='Password'
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={true}
-                    />
-
-                    <CVerticalSpacer/>
-
-                    <Button>Save</Button>
-                </Card>
+                <ConnectionStatusCard connectionStatus={connectionStatus}/>
+                <CVerticalSpacer/>
+                <CredentialsCard onSave={handleSave}/>
             </Layout>
         </BaseScreen>
     )

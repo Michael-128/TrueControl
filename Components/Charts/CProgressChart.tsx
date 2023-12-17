@@ -42,7 +42,7 @@ export function CProgressChart(props: {progress: number}) {
                 justifyContent: "center",
                 alignItems: "center"
             }}>
-                <Text category="h6" style={{color: theme["color-primary-500"]}}>{props.progress}%</Text>
+                <Text category="h6" style={{color: theme["color-primary-500"]}}>{Math.round(props.progress*10)/10}%</Text>
             </View>
         </View>
     )
