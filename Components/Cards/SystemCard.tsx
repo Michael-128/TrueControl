@@ -20,7 +20,7 @@ export default function SystemCard() {
                     <CLabel name="Uptime" value="1 day" />
                 </View>
 
-                <Icon style={{height: 100, width: 100, color: theme["color-primary-500"]}} name="nas" pack="material"/>
+                <Icon style={{height: 110, width: 110, color: theme["color-primary-500"]}} name="nas" pack="material"/>
             </View>
             
         </Card>
