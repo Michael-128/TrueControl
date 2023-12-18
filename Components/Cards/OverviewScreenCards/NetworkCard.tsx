@@ -1,33 +1,15 @@
-import { Card, Text, useTheme } from "@ui-kitten/components"
+import { Card, Icon, Text, useTheme } from "@ui-kitten/components"
 import { CIconHeader } from "../../Typography/CIconHeader"
 import { LineChart } from "react-native-chart-kit"
-import { useEffect } from "react"
-import { colorWithOpacity } from "../../Helpers/Helpers"
+import { useEffect, useState } from "react"
+import { colorWithOpacity, toSize } from "../../Helpers/Helpers"
 import { CDivider } from "../../Custom/CDivider"
+import { NetworkInterfaceInfo } from "../../../Types/Intefaces/NetworkInterfaceInfo"
+import { CVerticalSpacer } from "../../Custom/CVerticalSpacer"
+import { View } from "react-native"
 
-export default function NetworkCard() {
+export default function NetworkCard(props: {networkInterfaceInfo: NetworkInterfaceInfo[]}) {
     const theme = useTheme()
-
-    const data = {
-        labels: ["30s", "25s", "20s", "15s", "10s", "5s"],
-        datasets: [
-          {
-            data: [1000, 2000 , 1000, 500, 250, 1000, 1500, 2000, 100],
-            color: () => theme["color-primary-400"], // optional
-            strokeWidth: 2 // optional
-          }
-        ], // optional
-      };
-
-      
-
-      const chartConfig = {
-        backgroundGradientFromOpacity: 0,
-        backgroundGradientToOpacity: 0,
-        color: (opacity = 1) => {
-            return colorWithOpacity(theme["color-primary-700"], opacity)
-        },
-      };
 
     return (
         <Card>
@@ -36,9 +18,60 @@ export default function NetworkCard() {
             </CIconHeader>
 
             <CDivider/>
+
+            {
+              props.networkInterfaceInfo.flatMap((networkInterface: NetworkInterfaceInfo) => {
+                return (
+                  <Card key={networkInterface.name}>
+                    <View style={{flexDirection: "column"}}>
+                      <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text category="h4">{networkInterface.name}</Text>
+                      </View>
+                      <CDivider/>
+                      <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                        <View style={{flexDirection: "row", alignItems: "center"}}>
+                          <Icon style={{height: 24, width: 24, color: theme["color-info-500"]}} name="arrow-up" pack="material"/>
+                          <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.sent_bytes)}/s</Text>
+                        </View>
+                        <View style={{flexDirection: "row", alignItems: "center"}}>
+                          <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes)}/s</Text>
+                          <Icon style={{height: 24, width: 24, color: theme["color-success-700"]}} name="arrow-down" pack="material"/>
+                        </View>
+                      </View>
+                    </View>
+                  </Card>
+                )
+              })
+            }
             
-            <LineChart
-                data={data}
+        </Card>
+    )
+}
+
+/*
+
+const send  = {
+      labels: ["30s", "25s", "20s", "15s", "10s", "5s"],
+      datasets: [
+        {
+          data: interfaceSend.slice(-30, -1),
+          color: () => theme["color-primary-400"], // optional
+          strokeWidth: 2 // optional
+        }
+      ], // optional
+    };
+
+    
+
+    const chartConfig = {
+      backgroundGradientFromOpacity: 0,
+      backgroundGradientToOpacity: 0,
+      color: (opacity = 1) => {
+          return colorWithOpacity(theme["color-primary-700"], opacity)
+      },
+    };
+<LineChart
+                data={receive}
                 width={300}
                 height={200}
                 withDots={false}
@@ -46,9 +79,7 @@ export default function NetworkCard() {
                 verticalLabelRotation={30}
                 chartConfig={chartConfig}
                 formatYLabel={(value: string) => {
-                    return parseFloat(value).toString() + "kb/s"
+                    return toSize(parseInt(value))
                 }}
             />
-        </Card>
-    )
-}
+            */

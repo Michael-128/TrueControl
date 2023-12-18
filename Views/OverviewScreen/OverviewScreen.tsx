@@ -19,6 +19,7 @@ import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo";
 import { fetchDatasetInfo, fetchInfo, fetchPoolInfo, fetchWSInfo } from "./OverviewLogic";
 import { PoolInfo } from "../../Types/Intefaces/PoolInfo";
 import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo";
+import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo";
 
 
 export default function OverviewScreen() {
@@ -28,7 +29,9 @@ export default function OverviewScreen() {
     const [systemInfo, setSytemInfo] = useState<SystemInfo | null>(null)
     const [processorInfo, setProcessorInfo] = useState<ProcessorInfo | null>(null)
     const [memoryInfo, setMemoryInfo] = useState<MemoryInfo | null>(null)
+    
     const [datasetInfo, setDatasetInfo] = useState<DatasetInfo[]>([])
+    const [networkInterfaceInfo, setNetworkInterfaceInfo] = useState<NetworkInterfaceInfo[]>([])
 
     const [cpuUsage, setCpuUsage] = useState(0)
     const [cpuMaxTemp, setCpuMaxTemp] = useState(0) 
@@ -71,6 +74,7 @@ export default function OverviewScreen() {
                 setMemoryInfo(wsInfo.memoryInfo)
                 setReadSpeed(wsInfo.readSpeed)
                 setWriteSpeed(wsInfo.writeSpeed)
+                setNetworkInterfaceInfo(wsInfo.networkInterfaceInfo)
             }
         }, 1500)
 
@@ -88,7 +92,7 @@ export default function OverviewScreen() {
                 <CVerticalSpacer/>
                 <StorageCard readSpeed={readSpeed} writeSpeed={writeSpeed} datasetInfo={datasetInfo}/>
                 <CVerticalSpacer/>
-                <NetworkCard/>
+                <NetworkCard networkInterfaceInfo={networkInterfaceInfo}/>
             </Layout>
         </BaseScreen>
     )

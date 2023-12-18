@@ -1,5 +1,6 @@
 import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo"
 import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo"
+import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo"
 import { PoolInfo } from "../../Types/Intefaces/PoolInfo"
 import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo"
 import { SystemInfo } from "../../Types/Intefaces/SystemInfo"
@@ -56,12 +57,18 @@ export function fetchWSInfo(stats: any): {
     memoryInfo: MemoryInfo
     readSpeed: number
     writeSpeed: number
+    networkInterfaceInfo: NetworkInterfaceInfo[]
 } {          
     return {
         cpuUsage: stats.fields.cpu.average.usage as number,
         cpuMaxTemp: Math.max(...Object.values<number>(stats.fields.cpu.temperature_celsius)),
         memoryInfo: stats.fields.memory,
         readSpeed: stats.fields.disks.read_bytes,
-        writeSpeed: stats.fields.disks.write_bytes
+        writeSpeed: stats.fields.disks.write_bytes,
+        networkInterfaceInfo: Object.entries(stats.fields.interfaces).filter(([key, value]) => !key.includes("veth")).map(([key, value]) => { 
+            const inteface: NetworkInterfaceInfo = value as NetworkInterfaceInfo
+            inteface.name = key
+            return inteface
+        })
     }
 }
