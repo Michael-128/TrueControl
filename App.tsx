@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text, Button, IconRegistry } from '@ui-kitten/components';
-import OverviewScreen from './Views/OverviewScreen';
+import OverviewScreen from './Views/OverviewScreen/OverviewScreen';
 import { MaterialIconsPack } from './Icons/material-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

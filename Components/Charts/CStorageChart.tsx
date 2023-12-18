@@ -1,6 +1,7 @@
 import { Text, useTheme } from "@ui-kitten/components";
 import { View } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
+import { colorWithOpacity } from "../Helpers/Helpers";
 
 export function CStorageChart(props: {progress: number}) {
     const theme = useTheme()
@@ -15,7 +16,7 @@ export function CStorageChart(props: {progress: number}) {
             if(opacity >= 0.5)
                 return `${theme["color-success-600"]}`
 
-            return `${theme["color-success-200"]}`
+            return `${colorWithOpacity(theme["color-success-600"], 0.15)}`
         },
     };
 

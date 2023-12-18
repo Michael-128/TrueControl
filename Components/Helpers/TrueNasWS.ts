@@ -50,6 +50,10 @@ export class TrueNasWS {
     }
 
     constructor(url: string, username: string, password: string) {
+       this.init(url, username, password)
+    }
+
+    init(url: string, username: string, password: string) {
         this.ws = new WebSocket(url.replace("https://", "wss://").replace("http://", "ws://")+"/websocket")
 
         this.ws.onopen = () => {
@@ -87,7 +91,7 @@ export class TrueNasWS {
         };    
         
         this.ws.onclose = (e) => {
-            console.log(e.code, e.reason);
+            this.init(url, username, password)
         };
     }
 }

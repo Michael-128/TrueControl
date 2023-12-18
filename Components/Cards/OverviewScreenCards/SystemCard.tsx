@@ -4,6 +4,7 @@ import { CLabel } from "../../Typography/CLabel"
 import { View } from "react-native"
 import { SystemInfo } from "../../../Types/Intefaces/SystemInfo"
 import { useEffect, useState } from "react"
+import { CDivider } from "../../Custom/CDivider"
 
 export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
     const theme = useTheme()
@@ -28,6 +29,8 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
             <CIconHeader iconName="nas">
                 System
             </CIconHeader>
+
+            <CDivider/>
 
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                 <View style={{justifyContent: "space-evenly"}}>

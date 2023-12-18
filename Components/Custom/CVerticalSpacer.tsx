@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-export function CVerticalSpacer() {
+export function CVerticalSpacer(props: {margin?: number}) {
     return (
-        <View style={{marginVertical: 10}}/>
+        <View style={{marginVertical: props.margin ? props.margin : 10}}/>
     )
 }
