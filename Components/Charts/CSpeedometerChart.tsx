@@ -1,14 +1,28 @@
 import { Text, useTheme } from "@ui-kitten/components";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Arc, Progress } from "react-native-cool-speedometer";
 import Speedometer from "react-native-cool-speedometer/dist/Speedometer";
+import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
+import av from 'animate-value'
 
 export function CSpeedometerChart(props: {value: number, maxValue: number, title: string, subtitle: string}) {
-    const theme = useTheme()    
-    
+    const theme = useTheme()
+
+    const [currentValue, setCurrentValue] = useState(props.value)
+
+    useEffect(() => {
+        av({
+            from: currentValue,
+            to: props.value,
+            duration: 500,
+            change: (value: number) => setCurrentValue(value)
+        }).then;
+    }, [props.value])
+
     return (
         <Speedometer
-            value={props.value}
+            value={currentValue}
             max={props.maxValue}
             angle={240}
             lineCap="round"

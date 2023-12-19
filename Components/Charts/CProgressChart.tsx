@@ -2,9 +2,22 @@ import { Text, useTheme } from "@ui-kitten/components";
 import { View } from "react-native";
 import { ProgressChart } from "react-native-chart-kit";
 import { colorWithOpacity } from "../Helpers/Helpers";
+import { useEffect, useState } from "react";
+import av from 'animate-value'
 
 export function CProgressChart(props: {progress: number}) {
     const theme = useTheme()
+
+    const [currentProgress, setCurrentProgress] = useState(props.progress)
+
+    useEffect(() => {
+        av({
+            from: currentProgress,
+            to: props.progress,
+            duration: 500,
+            change: (value: number) => setCurrentProgress(value)
+        }).then;
+    }, [props.progress])
 
     const chartConfig = {
         fillShadowGradient: "black",
@@ -26,7 +39,7 @@ export function CProgressChart(props: {progress: number}) {
         }}>
             <ProgressChart 
                 data={{
-                    data: [props.progress/100]
+                    data: [currentProgress/100]
                 }}
                 width={100}
                 height={100}
