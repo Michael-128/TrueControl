@@ -6,6 +6,7 @@ import { SystemInfo } from "../../../Types/Intefaces/SystemInfo"
 import { useEffect, useState } from "react"
 import { CDivider } from "../../Custom/CDivider"
 import { BaseOverviewCard } from "./BaseOverviewCard"
+import { toTime } from "../../Helpers/Helpers"
 
 export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
     const theme = useTheme()
@@ -14,7 +15,11 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
     const [manufacturer, setManufacturer] = useState("")
     const [version, setVersion] = useState("")
     const [hostname, setHostname] = useState("")
-    const [uptime, setUptime] = useState("")
+    const [uptime, setUptime] = useState<EpochTimeStamp>(Date.now())
+
+    function getUptime() {
+        return toTime((Date.now() - uptime)/1000)
+    }
 
     useEffect(() => {
         if(!systemInfo) return
@@ -22,7 +27,7 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
         setManufacturer(systemInfo.system_manufacturer)
         setVersion(systemInfo.version)
         setHostname(systemInfo.hostname)
-        setUptime(systemInfo.uptime.split(":").slice(0, -1).join(" hours ")+" minutes")
+        setUptime(Date.now() - Math.floor(systemInfo.uptime_seconds*1000))
     }, [systemInfo])
 
     return (
@@ -32,7 +37,7 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
                     <CLabel name="Manufacturer" value={manufacturer} />
                     <CLabel name="Version" value={version} />
                     <CLabel name="Hostname" value={hostname} />
-                    <CLabel name="Uptime" value={uptime} />
+                    <CLabel name="Uptime" value={getUptime()} />
                 </View>
             </View>
         </BaseOverviewCard>

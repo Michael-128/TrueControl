@@ -30,7 +30,7 @@ export default function NetworkCard(props: {networkInterfaceInfo: NetworkInterfa
                       </View>
                       <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes)}/s</Text>
-                        <Icon style={{height: 24, width: 24, color: theme["color-success-700"]}} name="arrow-down" pack="material"/>
+                        <Icon style={{height: 24, width: 24, color: theme["color-success-600"]}} name="arrow-down" pack="material"/>
                       </View>
                     </View>
                   </View>

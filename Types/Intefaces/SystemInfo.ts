@@ -3,4 +3,5 @@ export interface SystemInfo {
     version: string
     hostname: string
     uptime: string
+    uptime_seconds: number
 }

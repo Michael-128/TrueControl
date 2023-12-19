@@ -14,6 +14,16 @@ export function toSize(bytes: number): string {
     return `${Math.round(terabytes*10)/10} TiB`
 }
 
+export function toTime(seconds: number) {
+    seconds = Math.floor(seconds)
+
+    const days = Math.floor(seconds/(24*3600))
+    const hours = Math.floor((seconds % (24*3600)) / 3600)
+    const minutes = Math.floor(seconds % 3600 / 60)
+    const seconds1 = Math.floor(seconds % 60)
+
+    return `${days}d ${hours}h ${minutes}m`
+}
 
 export function colorWithOpacity(hexColor: string = "#000000", opacity: number): string {
     let expandedOpacity = Math.round(opacity * 255)
