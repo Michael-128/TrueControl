@@ -1,7 +1,7 @@
 import { Layout } from "@ui-kitten/components";
 import { ScrollView } from "react-native-gesture-handler";
 
-export function BaseScreen(props: {children: JSX.Element}) {
+export function BaseScreen(props: {children: JSX.Element | JSX.Element[]}) {
     return (
         <ScrollView>
             <Layout style={{

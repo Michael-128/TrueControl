@@ -7,44 +7,38 @@ import { CDivider } from "../../Custom/CDivider"
 import { NetworkInterfaceInfo } from "../../../Types/Intefaces/NetworkInterfaceInfo"
 import { CVerticalSpacer } from "../../Custom/CVerticalSpacer"
 import { View } from "react-native"
+import { BaseOverviewCard } from "./BaseOverviewCard"
 
 export default function NetworkCard(props: {networkInterfaceInfo: NetworkInterfaceInfo[]}) {
     const theme = useTheme()
 
     return (
-        <Card>
-            <CIconHeader iconName="server-network">
-                Network
-            </CIconHeader>
-
-            <CDivider/>
-
-            {
-              props.networkInterfaceInfo.flatMap((networkInterface: NetworkInterfaceInfo) => {
-                return (
-                  <Card key={networkInterface.name}>
-                    <View style={{flexDirection: "column"}}>
+        <BaseOverviewCard title="Network" iconName="server-network">
+          {
+            props.networkInterfaceInfo.flatMap((networkInterface: NetworkInterfaceInfo) => {
+              return (
+                <Card key={networkInterface.name}>
+                  <View style={{flexDirection: "column"}}>
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                      <Text category="h4">{networkInterface.name}</Text>
+                    </View>
+                    <CDivider/>
+                    <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                       <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Text category="h4">{networkInterface.name}</Text>
+                        <Icon style={{height: 24, width: 24, color: theme["color-info-500"]}} name="arrow-up" pack="material"/>
+                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.sent_bytes)}/s</Text>
                       </View>
-                      <CDivider/>
-                      <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                        <View style={{flexDirection: "row", alignItems: "center"}}>
-                          <Icon style={{height: 24, width: 24, color: theme["color-info-500"]}} name="arrow-up" pack="material"/>
-                          <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.sent_bytes)}/s</Text>
-                        </View>
-                        <View style={{flexDirection: "row", alignItems: "center"}}>
-                          <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes)}/s</Text>
-                          <Icon style={{height: 24, width: 24, color: theme["color-success-700"]}} name="arrow-down" pack="material"/>
-                        </View>
+                      <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes)}/s</Text>
+                        <Icon style={{height: 24, width: 24, color: theme["color-success-700"]}} name="arrow-down" pack="material"/>
                       </View>
                     </View>
-                  </Card>
-                )
-              })
-            }
-            
-        </Card>
+                  </View>
+                </Card>
+              )
+            })
+          }
+        </BaseOverviewCard>
     )
 }
 

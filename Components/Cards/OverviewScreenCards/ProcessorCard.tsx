@@ -6,6 +6,7 @@ import { View } from "react-native";
 import { ProcessorInfo } from "../../../Types/Intefaces/ProcessorInfo";
 import { useEffect, useState } from "react";
 import { CDivider } from "../../Custom/CDivider";
+import { BaseOverviewCard } from "./BaseOverviewCard";
 
 export default function ProcessorCard(props: {cpuUsage: number, cpuMaxTemp: number, processorInfo: ProcessorInfo | null}) {
     
@@ -22,13 +23,7 @@ export default function ProcessorCard(props: {cpuUsage: number, cpuMaxTemp: numb
     }, [props.processorInfo])
 
     return (
-        <Card>
-            <CIconHeader iconName="chip">
-                Processor
-            </CIconHeader>
-
-            <CDivider/>
-
+        <BaseOverviewCard title="Processor" iconName="chip">
             <View style={{flex: 1, flexDirection: "row", justifyContent:"flex-start"}}>
                 <View>
                     <CProgressChart progress={props.cpuUsage}/>
@@ -42,7 +37,7 @@ export default function ProcessorCard(props: {cpuUsage: number, cpuMaxTemp: numb
                     <CLabel name="Hottest" value={`${props.cpuMaxTemp}°C`} />
                 </View>
             </View>
-        </Card>
+        </BaseOverviewCard>
     )
 }
 

@@ -8,6 +8,7 @@ import { MemoryInfo } from "../../../Types/Intefaces/MemoryInfo"
 import { useEffect, useState } from "react"
 import { toSize } from "../../Helpers/Helpers"
 import { CDivider } from "../../Custom/CDivider"
+import { BaseOverviewCard } from "./BaseOverviewCard"
 
 
 export default function MemoryCard(props: {memoryInfo: MemoryInfo | null}) {
@@ -30,17 +31,8 @@ export default function MemoryCard(props: {memoryInfo: MemoryInfo | null}) {
         setAppsMemory(props.memoryInfo.classes.apps + props.memoryInfo.classes.cache + props.memoryInfo.classes.buffers + props.memoryInfo.classes.page_tables + props.memoryInfo.classes.slab_cache)
     }, [props.memoryInfo])
 
-
-    
-
     return (
-        <Card>
-            <CIconHeader iconName="memory">
-                Memory
-            </CIconHeader>
-
-            <CDivider/>
-
+        <BaseOverviewCard title="Memory" iconName="memory">
             <View style={{flex: 1, flexDirection: "row", justifyContent:"space-between"}}>
                 <View style={{
                     justifyContent: "space-evenly",
@@ -83,6 +75,6 @@ export default function MemoryCard(props: {memoryInfo: MemoryInfo | null}) {
                     ]}/>
                 </View>
             </View>
-        </Card>
+        </BaseOverviewCard>
     )
 }

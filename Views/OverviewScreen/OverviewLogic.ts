@@ -5,15 +5,28 @@ import { PoolInfo } from "../../Types/Intefaces/PoolInfo"
 import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo"
 import { SystemInfo } from "../../Types/Intefaces/SystemInfo"
 
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+async function getFetch(url: string, token: string, retry: boolean = true) {
+    try {
+        const req = await fetch(url, {
+            headers: {
+                Authorization: token
+            }
+        })
+
+        return req
+    } catch(e) {
+        await sleep(3000)
+        return await getFetch(url, token, retry)
+    }
+}
+
 export async function fetchInfo(url: string, token: string): Promise<{
     systemInfo: SystemInfo
     processorInfo: ProcessorInfo
 }> {
-    const res = await fetch(`${url}/api/v2.0/system/info`, {
-        headers: {
-            Authorization: token
-        }
-    })
+    const res = await getFetch(`${url}/api/v2.0/system/info`, token)
 
     const json = await res.json()
 
@@ -27,11 +40,7 @@ export async function fetchInfo(url: string, token: string): Promise<{
 }
 
 export async function fetchPoolInfo(url: string, token: string): Promise<PoolInfo[]> {
-    const res = await fetch(`${url}/api/v2.0/pool`, {
-        headers: {
-            Authorization: token
-        }
-    })
+    const res = await getFetch(`${url}/api/v2.0/pool`, token)
     const json = await res.json()
 
     const poolInfo: PoolInfo[] = json
@@ -39,11 +48,7 @@ export async function fetchPoolInfo(url: string, token: string): Promise<PoolInf
 }
 
 export async function fetchDatasetInfo(url: string, token: string): Promise<DatasetInfo[]> {
-    const res = await fetch(`${url}/api/v2.0/pool/dataset`, {
-        headers: {
-            Authorization: token
-        }
-    })
+    const res = await getFetch(`${url}/api/v2.0/pool/dataset`, token)
     const json = await res.json()
 
     const datasetInfo: DatasetInfo[] = json

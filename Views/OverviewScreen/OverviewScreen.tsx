@@ -1,13 +1,10 @@
-import { Layout, Text, TopNavigation, Icon, IconElement, TopNavigationAction } from "@ui-kitten/components";
+import { Layout } from "@ui-kitten/components";
 
 import SystemCard from "../../Components/Cards/OverviewScreenCards/SystemCard";
 import ProcessorCard from "../../Components/Cards/OverviewScreenCards/ProcessorCard";
 import MemoryCard from "../../Components/Cards/OverviewScreenCards/MemoryCard";
 import StorageCard from "../../Components/Cards/OverviewScreenCards/StorageCard";
 import NetworkCard from "../../Components/Cards/OverviewScreenCards/NetworkCard";
-import { CDivider } from "../../Components/Custom/CDivider";
-import { ScrollView, View } from "react-native";
-import { CBottomNavigation } from "../../Components/Navigation/CBottomNavigation";
 import { CVerticalSpacer } from "../../Components/Custom/CVerticalSpacer";
 import { BaseScreen } from "../BaseScreen";
 import { useEffect, useState } from "react";
@@ -16,10 +13,10 @@ import { SystemInfo } from "../../Types/Intefaces/SystemInfo";
 import { TrueNasWS } from "../../Components/Helpers/TrueNasWS";
 import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo";
 import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo";
-import { fetchDatasetInfo, fetchInfo, fetchPoolInfo, fetchWSInfo } from "./OverviewLogic";
-import { PoolInfo } from "../../Types/Intefaces/PoolInfo";
+import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "./OverviewLogic";
 import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo";
 import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo";
+import { OverviewSkeleton } from "./OverviewSkeleton";
 
 
 export default function OverviewScreen() {
@@ -39,6 +36,11 @@ export default function OverviewScreen() {
     const [readSpeed, setReadSpeed] = useState(0)
     const [writeSpeed, setWriteSpeed] = useState(0)
 
+    const [isFetchDataLoaded, setIsFetchDataLoaded] = useState(false)
+    const [isWSDataLoaded, setIsWSDataLoaded] = useState(false)
+
+    const isLoaded = () => {return isFetchDataLoaded && isWSDataLoaded}
+
     async function getCredentials() {
         const cred = await Storage.getCredentials()
         if(cred) setCredentials(cred)
@@ -49,13 +51,17 @@ export default function OverviewScreen() {
     }, [])
     
     function fetchAllInfo() {
-        fetchInfo(credentials!.url, credentials!.token).then(info => {
+        const infoPromise = fetchInfo(credentials!.url, credentials!.token).then(info => {
             setSytemInfo(info.systemInfo)
             setProcessorInfo(info.processorInfo)
         })
 
-        fetchDatasetInfo(credentials!.url, credentials!.token).then(info => {
+        const datasetPromise = fetchDatasetInfo(credentials!.url, credentials!.token).then(info => {
             setDatasetInfo(info)
+        })
+
+        Promise.all([infoPromise, datasetPromise]).then(() => {
+            setIsFetchDataLoaded(true)
         })
     }
 
@@ -75,11 +81,15 @@ export default function OverviewScreen() {
                 setReadSpeed(wsInfo.readSpeed)
                 setWriteSpeed(wsInfo.writeSpeed)
                 setNetworkInterfaceInfo(wsInfo.networkInterfaceInfo)
+                setIsWSDataLoaded(true)
             }
         }, 1500)
-
         return () => clearInterval(intervalID)
     }, [credentials])
+
+    if(!isLoaded()) return (
+        <OverviewSkeleton/>
+    )
 
     return (
         <BaseScreen>

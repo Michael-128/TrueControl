@@ -5,6 +5,7 @@ import { View } from "react-native"
 import { SystemInfo } from "../../../Types/Intefaces/SystemInfo"
 import { useEffect, useState } from "react"
 import { CDivider } from "../../Custom/CDivider"
+import { BaseOverviewCard } from "./BaseOverviewCard"
 
 export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
     const theme = useTheme()
@@ -25,13 +26,7 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
     }, [systemInfo])
 
     return (
-        <Card>
-            <CIconHeader iconName="nas">
-                System
-            </CIconHeader>
-
-            <CDivider/>
-
+        <BaseOverviewCard title="System" iconName="nas">
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                 <View style={{justifyContent: "space-evenly"}}>
                     <CLabel name="Manufacturer" value={manufacturer} />
@@ -40,7 +35,6 @@ export default function SystemCard(props: {systemInfo: SystemInfo | null}) {
                     <CLabel name="Uptime" value={uptime} />
                 </View>
             </View>
-            
-        </Card>
+        </BaseOverviewCard>
     )
 }

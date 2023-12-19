@@ -14,18 +14,13 @@ import { CVerticalSpacer } from "../../Custom/CVerticalSpacer"
 import { CProgressBar } from "../../Custom/CProgressBar"
 import { PoolInfo } from "../../../Types/Intefaces/PoolInfo"
 import { DatasetInfo } from "../../../Types/Intefaces/DatasetInfo"
+import { BaseOverviewCard } from "./BaseOverviewCard"
 
 export default function StorageCard(props: {readSpeed: number, writeSpeed: number, datasetInfo: DatasetInfo[]}) {
     const theme = useTheme()
 
     return (
-        <Card>
-            <CIconHeader iconName="harddisk">
-                Storage
-            </CIconHeader>
-
-            <CDivider/>
-            
+        <BaseOverviewCard title="Storage" iconName="harddisk">
             <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 10}}>
                 <CSpeedometerChart value={props.readSpeed} maxValue={100 * 1024 * 1024} title="Read" subtitle={toSize(props.readSpeed)+"/s"} />
                 <CSpeedometerChart value={props.writeSpeed} maxValue={100 * 1024 * 1024} title="Write" subtitle={toSize(props.writeSpeed)+"/s"} />
@@ -37,22 +32,24 @@ export default function StorageCard(props: {readSpeed: number, writeSpeed: numbe
 
             <CDivider/>
 
-            {props.datasetInfo.filter(dataset => !dataset.id.includes("/")).flatMap(dataset => {
-                const totalSpace = dataset.available.parsed + dataset.used.parsed
+            <>
+                {props.datasetInfo.filter(dataset => !dataset.id.includes("/")).flatMap(dataset => {
+                    const totalSpace = dataset.available.parsed + dataset.used.parsed
 
-                return (
-                    <Card style={{marginTop: 10}} key={dataset.id}>
-                        <View style={{flexDirection: "column"}}>
-                            <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                <Text category="h6">{shortenString(dataset.name, 8)}</Text>
-                                <Text category="h6" style={{fontWeight: 'normal'}}>{toSize(dataset.available.parsed)} Free</Text>
+                    return (
+                        <Card style={{marginTop: 10}} key={dataset.id}>
+                            <View style={{flexDirection: "column"}}>
+                                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                                    <Text category="h6">{shortenString(dataset.name, 8)}</Text>
+                                    <Text category="h6" style={{fontWeight: 'normal'}}>{toSize(dataset.available.parsed)} Free</Text>
+                                </View>
+                                <CVerticalSpacer margin={5}/>
+                                <CProgressBar progress={dataset.used.parsed / totalSpace * 100}/>
                             </View>
-                            <CVerticalSpacer margin={5}/>
-                            <CProgressBar progress={dataset.used.parsed / totalSpace * 100}/>
-                        </View>
-                    </Card>
-                )
-            })}
-        </Card>
+                        </Card>
+                    )
+                })}
+            </>
+        </BaseOverviewCard>
     )
 }
