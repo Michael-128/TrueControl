@@ -1,6 +1,10 @@
 import React from 'react';
-import { Drawer, DrawerItem, IndexPath, Text } from '@ui-kitten/components';
+import { Drawer, DrawerItem, Icon, IndexPath, Text } from '@ui-kitten/components';
 import { NavigationState, NavigatorScreenParams } from '@react-navigation/native';
+
+const ChartIcon = (props: any) => <Icon {...props} name="chart-line" pack="material"/>
+const ConnectionIcon = (props: any) => <Icon {...props} name="connection" pack="material"/>
+const AppsIcon = (props: any) => <Icon {...props} name="apps" pack="material"/>
 
 export const CDrawer = (props: { navigation: any, state: NavigationState }): React.ReactElement => {
 
@@ -18,8 +22,9 @@ export const CDrawer = (props: { navigation: any, state: NavigationState }): Rea
       }}
       header={<Text category='h2'>TrueControl</Text>}
     > 
-      <DrawerItem title='Overview' />
-      <DrawerItem title='Connectivity' />
+      <DrawerItem accessoryLeft={ChartIcon} title='Overview' />
+      <DrawerItem accessoryLeft={AppsIcon} title='Apps' />
+      <DrawerItem accessoryLeft={ConnectionIcon} title='Connectivity' />
     </Drawer>
   );
 };

@@ -1,3 +1,5 @@
+import { sleep } from "./Helpers"
+
 export class TrueNasWS {
 
     ws: WebSocket
@@ -90,7 +92,8 @@ export class TrueNasWS {
             console.log(e);
         };    
         
-        this.ws.onclose = (e) => {
+        this.ws.onclose = async (e) => {
+            await sleep(1000)
             this.init(url, username, password)
         };
     }

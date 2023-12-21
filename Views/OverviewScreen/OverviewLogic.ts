@@ -4,23 +4,9 @@ import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo
 import { PoolInfo } from "../../Types/Intefaces/PoolInfo"
 import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo"
 import { SystemInfo } from "../../Types/Intefaces/SystemInfo"
+import { getFetch } from "../BaseLogic/BaseLogic"
 
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-async function getFetch(url: string, token: string, retry: boolean = true) {
-    try {
-        const req = await fetch(url, {
-            headers: {
-                Authorization: token
-            }
-        })
-
-        return req
-    } catch(e) {
-        await sleep(3000)
-        return await getFetch(url, token, retry)
-    }
-}
 
 export async function fetchInfo(url: string, token: string): Promise<{
     systemInfo: SystemInfo

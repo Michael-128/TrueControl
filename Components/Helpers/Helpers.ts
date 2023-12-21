@@ -49,3 +49,5 @@ export function shortenString(str: string, maxLength: number): string {
 
     return str
 }
+
+export const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));

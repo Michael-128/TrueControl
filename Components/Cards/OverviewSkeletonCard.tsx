@@ -6,7 +6,7 @@ import { MotiView } from 'moti';
 import { Skeleton } from 'moti/skeleton';
 import { CVerticalSpacer } from '../Custom/CVerticalSpacer';
 
-export function SkeletonCard(props: {title: string, iconName: string}) {
+export function OverviewSkeletonCard(props: {title: string, iconName: string}) {
     const colorMode = 'light'
 
     return (

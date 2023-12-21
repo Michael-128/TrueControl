@@ -9,9 +9,9 @@ import { ConnectionStatusCard } from "../Components/Cards/ConnectivityScreenCard
 import base64 from "react-native-base64";
 import { Storage } from "../Components/Storage/Storage";
 
-export function ConnectivityScreen() {
+export function ConnectivityScreen(props: {isConnected?: (isConnected: boolean) => void}) {
 
-    const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.CONNECTING)
+    const [connectionStatus, setConnectionStatus] = useState<ConnectionStatus>(ConnectionStatus.DISCONNECTED)
 
     async function handleSave(url: string, username: string, password: string) {
         if(await checkConnectivity(url, username, password)) {
@@ -63,6 +63,15 @@ export function ConnectivityScreen() {
         }
         getStatus()
     }, [])
+
+    useEffect(() => {
+        if(!props.isConnected) return
+
+        if(connectionStatus == ConnectionStatus.CONNECTED)
+            props.isConnected(true)
+        else
+            props.isConnected(false)
+    }, [connectionStatus])
 
     return (
         <BaseScreen>

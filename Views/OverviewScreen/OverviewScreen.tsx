@@ -68,6 +68,8 @@ export default function OverviewScreen() {
 
     useEffect(() => {
         if(!credentials) return
+
+        if(!credentials.url.includes("http://") && !credentials.url.includes("https://")) return
         
         fetchAllInfo()
 

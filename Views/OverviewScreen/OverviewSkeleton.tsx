@@ -1,19 +1,19 @@
 import { BaseScreen } from "../BaseScreen";
-import { SkeletonCard } from "../../Components/Cards/SkeletonCard";
+import { OverviewSkeletonCard } from "../../Components/Cards/OverviewSkeletonCard";
 import { CVerticalSpacer } from "../../Components/Custom/CVerticalSpacer";
 
 export function OverviewSkeleton() {
     return (
         <BaseScreen>
-            <SkeletonCard title="System" iconName="nas" />
+            <OverviewSkeletonCard title="System" iconName="nas" />
             <CVerticalSpacer/>
-            <SkeletonCard title="Processor" iconName="chip" />
+            <OverviewSkeletonCard title="Processor" iconName="chip" />
             <CVerticalSpacer/>
-            <SkeletonCard title="Memory" iconName="memory" />
+            <OverviewSkeletonCard title="Memory" iconName="memory" />
             <CVerticalSpacer/>
-            <SkeletonCard title="Storage" iconName="harddisk" />
+            <OverviewSkeletonCard title="Storage" iconName="harddisk" />
             <CVerticalSpacer/>
-            <SkeletonCard title="Network" iconName="network" />
+            <OverviewSkeletonCard title="Network" iconName="network" />
         </BaseScreen>
     )
 }
