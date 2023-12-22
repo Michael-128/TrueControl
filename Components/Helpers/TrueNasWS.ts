@@ -10,6 +10,8 @@ export class TrueNasWS {
     onStats = (stats: any) => {}
     nextStats = (stats: any) => {}
 
+    onScale = (currentScale: number) => {}
+
     sendConnect() {
         this.ws.send(JSON.stringify({
             "msg": "connect",
@@ -49,10 +51,6 @@ export class TrueNasWS {
 
     close() {
         this.ws.close()
-    }
-
-    constructor(url: string, username: string, password: string) {
-       this.init(url, username, password)
     }
 
     init(url: string, username: string, password: string) {
@@ -98,3 +96,5 @@ export class TrueNasWS {
         };
     }
 }
+
+export const TrueNasWSStatic = new TrueNasWS()

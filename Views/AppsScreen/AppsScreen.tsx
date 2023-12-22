@@ -39,10 +39,17 @@ export function AppsScreen() {
         setAppInfo(json)
     }
 
+    async function refresh() {
+        fetchAllInfo()
+    }
+
     useEffect(() => {
         if(!credentials) return
 
         fetchAllInfo()
+        const interval = setInterval(() => fetchAllInfo(), 2500)
+
+        return () => clearInterval(interval)
     }, [credentials])
 
     if(appInfo.length == 0) {
@@ -60,7 +67,7 @@ export function AppsScreen() {
                     appInfo.filter(app => app.name.includes(appSearch)).flatMap((app: AppInfo) => {
                         return (
                             <View key={app.id}>
-                                <AppCard app={app}/>
+                                <AppCard refreshApps={refresh} credentials={credentials!} app={app}/>
                             </View>
                         )
                     })

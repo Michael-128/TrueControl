@@ -10,7 +10,7 @@ import { BaseScreen } from "../BaseScreen";
 import { useEffect, useState } from "react";
 import { Credentials, Storage } from "../../Components/Storage/Storage";
 import { SystemInfo } from "../../Types/Intefaces/SystemInfo";
-import { TrueNasWS } from "../../Components/Helpers/TrueNasWS";
+import { TrueNasWS, TrueNasWSStatic } from "../../Components/Helpers/TrueNasWS";
 import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo";
 import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo";
 import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "./OverviewLogic";
@@ -73,10 +73,10 @@ export default function OverviewScreen() {
         
         fetchAllInfo()
 
-        const trueNasWS = new TrueNasWS(credentials!.url, credentials!.username, credentials!.password)
+        TrueNasWSStatic.init(credentials!.url, credentials!.username, credentials!.password)
 
         const intervalID = setInterval(() => {
-            trueNasWS.nextStats = (stats: any) => {
+            TrueNasWSStatic.nextStats = (stats: any) => {
                 const wsInfo = fetchWSInfo(stats)
                 setCpuUsage(wsInfo.cpuUsage)
                 setCpuMaxTemp(wsInfo.cpuMaxTemp)

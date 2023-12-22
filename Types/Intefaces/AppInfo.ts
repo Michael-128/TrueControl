@@ -11,4 +11,16 @@ export interface AppInfo {
     catalog: string
     status: string
     update_available: boolean
+    config: {
+        release_name: string
+        workload: {
+            main: {
+                replicas: number
+            }
+        }   
+    }
+    portals: {
+        web_portal?: [string]
+        open?: [string | boolean]
+    }
 }

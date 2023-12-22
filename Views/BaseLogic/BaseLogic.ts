@@ -14,3 +14,19 @@ export async function getFetch(url: string, token: string, retry: boolean = true
         return await getFetch(url, token, retry)
     }
 }
+
+export async function postFetch(url: string, token: string, body: any) {
+    try {
+        const req = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: token
+            },
+            body: JSON.stringify(body)
+        })
+
+        return req
+    } catch(e) {
+        console.log(e)
+    }
+}
