@@ -1,5 +1,6 @@
 import 'react-native-reanimated'
 import 'react-native-gesture-handler'
+import 'react-native-get-random-values'
 
 import React, { useContext, useEffect, useState } from 'react';
 import * as eva from '@eva-design/eva';
@@ -16,6 +17,7 @@ import { AppsScreen } from './Views/AppsScreen/AppsScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
+import { ShellScreen } from './Views/ShellScreen';
 
 const { Navigator, Screen } = createDrawerNavigator()
 
@@ -23,6 +25,7 @@ const DrawerNavigator = () => {
   return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewScreen}/>
     <Screen name='Apps' component={AppsScreen}/>
+    <Screen name='Shell' component={ShellScreen}/>
     <Screen name='Connectivity' component={ConnectivityScreen}/>
   </Navigator>)
 };

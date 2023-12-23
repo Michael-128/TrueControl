@@ -24,6 +24,7 @@ export const CDrawer = (props: { navigation: any, state: NavigationState }): Rea
     > 
       <DrawerItem accessoryLeft={ChartIcon} title='Overview' />
       <DrawerItem accessoryLeft={AppsIcon} title='Apps' />
+      <DrawerItem accessoryLeft={ConnectionIcon} title='Shell' />
       <DrawerItem accessoryLeft={ConnectionIcon} title='Connectivity' />
     </Drawer>
   );
