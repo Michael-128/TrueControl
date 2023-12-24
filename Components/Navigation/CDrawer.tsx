@@ -5,6 +5,7 @@ import { NavigationState, NavigatorScreenParams } from '@react-navigation/native
 const ChartIcon = (props: any) => <Icon {...props} name="chart-line" pack="material"/>
 const ConnectionIcon = (props: any) => <Icon {...props} name="connection" pack="material"/>
 const AppsIcon = (props: any) => <Icon {...props} name="apps" pack="material"/>
+const HardDiskIcon = (props: any) => <Icon {...props} name="harddisk" pack="material"/>
 
 export const CDrawer = (props: { navigation: any, state: NavigationState }): React.ReactElement => {
 
@@ -23,8 +24,8 @@ export const CDrawer = (props: { navigation: any, state: NavigationState }): Rea
       header={<Text category='h2'>TrueControl</Text>}
     > 
       <DrawerItem accessoryLeft={ChartIcon} title='Overview' />
+      <DrawerItem accessoryLeft={HardDiskIcon} title='Storage' />
       <DrawerItem accessoryLeft={AppsIcon} title='Apps' />
-      <DrawerItem accessoryLeft={ConnectionIcon} title='Shell' />
       <DrawerItem accessoryLeft={ConnectionIcon} title='Connectivity' />
     </Drawer>
   );

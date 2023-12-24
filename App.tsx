@@ -18,14 +18,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
 import { ShellScreen } from './Views/ShellScreen';
+import { StorageScreen } from './Views/StorageScreen';
 
 const { Navigator, Screen } = createDrawerNavigator()
 
 const DrawerNavigator = () => {
   return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewScreen}/>
+    <Screen name='Storage' component={StorageScreen}/>
     <Screen name='Apps' component={AppsScreen}/>
-    <Screen name='Shell' component={ShellScreen}/>
     <Screen name='Connectivity' component={ConnectivityScreen}/>
   </Navigator>)
 };

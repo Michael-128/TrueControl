@@ -7,4 +7,5 @@ export interface DatasetInfo {
     used: {
         parsed: number
     }
+    mountpoint: string
 }
