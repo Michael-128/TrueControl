@@ -17,7 +17,6 @@ import { AppsScreen } from './Views/AppsScreen/AppsScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
-import { ShellScreen } from './Views/ShellScreen';
 import { StorageScreen } from './Views/StorageScreen';
 
 const { Navigator, Screen } = createDrawerNavigator()

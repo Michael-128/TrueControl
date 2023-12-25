@@ -3,7 +3,6 @@ import { BaseScreen } from "./BaseScreen";
 import { useEffect, useState } from "react";
 import { TrueNasWSStatic } from "../Components/Helpers/TrueNasWS";
 import { ScrollView } from "react-native-gesture-handler";
-import { v4 as uuid } from 'uuid';
 import { View } from "react-native";
 
 export function ShellScreen() {

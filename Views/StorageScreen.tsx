@@ -1,9 +1,8 @@
-import { Card, Icon, Text, useTheme } from "@ui-kitten/components";
+import { Card, Text, useTheme } from "@ui-kitten/components";
 import { BaseScreen } from "./BaseScreen";
 import { useEffect, useState } from "react";
 import { fetchDatasetInfo, fetchPoolInfo } from "./OverviewScreen/OverviewLogic";
 import { Credentials, Storage } from "../Components/Storage/Storage";
-import PoolCard from "../Components/Cards/PoolScreenCards/PoolCard";
 import { DatasetInfo } from "../Types/Intefaces/DatasetInfo";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
 import { View } from "moti";
@@ -11,8 +10,7 @@ import { PoolInfo } from "../Types/Intefaces/PoolInfo";
 import { CProgressBar } from "../Components/Custom/CProgressBar";
 import { CDivider } from "../Components/Custom/CDivider";
 import { toSize } from "../Components/Helpers/Helpers";
-import { CGreenChip, CRedChip } from "../Components/Custom/Chip/CChip";
-import { CHorizontalSpacer } from "../Components/Custom/CHorizontalSpacer";
+import { CGreenChip } from "../Components/Custom/Chip/CChip";
 import { CIconHeader } from "../Components/Typography/CIconHeader";
 
 interface StorageInfo {

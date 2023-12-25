@@ -1,6 +1,5 @@
-import { Text, Layout, Card, Input, Button } from "@ui-kitten/components";
+import { Layout } from "@ui-kitten/components";
 import { BaseScreen } from "./BaseScreen";
-import { CDivider } from "../Components/Custom/CDivider";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
 import { useEffect, useState } from "react";
 import { ConnectionStatus } from "../Types/Enums/ConnectionStatus";
