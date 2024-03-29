@@ -49,7 +49,7 @@ export function fetchWSInfo(stats: any): {
     readSpeed: number
     writeSpeed: number
     networkInterfaceInfo: NetworkInterfaceInfo[]
-} {          
+} {   
     return {
         cpuUsage: stats.fields.cpu.average.usage as number,
         cpuMaxTemp: Math.max(...Object.values<number>(stats.fields.cpu.temperature_celsius)),

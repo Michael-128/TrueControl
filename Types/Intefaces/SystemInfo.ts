@@ -4,4 +4,5 @@ export interface SystemInfo {
     hostname: string
     uptime: string
     uptime_seconds: number
+    physmem: number
 }

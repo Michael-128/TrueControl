@@ -9,9 +9,10 @@ import { useEffect, useState } from "react"
 import { toSize } from "../../Helpers/Helpers"
 import { CDivider } from "../../Custom/CDivider"
 import { BaseOverviewCard } from "./BaseOverviewCard"
+import { SystemInfo } from "../../../Types/Intefaces/SystemInfo"
 
 
-export default function MemoryCard(props: {memoryInfo: MemoryInfo | null}) {
+export default function MemoryCard(props: {memoryInfo: MemoryInfo | null, systemInfo: SystemInfo | null}) {
 
     const theme = useTheme()
 
@@ -22,13 +23,17 @@ export default function MemoryCard(props: {memoryInfo: MemoryInfo | null}) {
     const [appsMemory, setAppsMemory] = useState<number>(0)
 
     useEffect(() => {
-        if(!props.memoryInfo) return
+        if(!props.systemInfo) return
+        
+        setTotalMemory(props.systemInfo.physmem)
+    }, [props.systemInfo])
 
-        setTotalMemory(Object.values(props.memoryInfo.classes).reduce((sum: number, next: number) => sum += next))
+    useEffect(() => {
+        if(!props.memoryInfo) return
 
         setFreeMemory(props.memoryInfo.classes.unused)
         setArcMemory(props.memoryInfo.classes.arc)
-        setAppsMemory(props.memoryInfo.classes.apps + props.memoryInfo.classes.cache + props.memoryInfo.classes.buffers + props.memoryInfo.classes.page_tables + props.memoryInfo.classes.slab_cache)
+        setAppsMemory(props.memoryInfo.classes.apps)
     }, [props.memoryInfo])
 
     return (

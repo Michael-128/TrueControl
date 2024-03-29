@@ -101,7 +101,7 @@ export default function OverviewScreen() {
                 <CVerticalSpacer/>
                 <ProcessorCard cpuUsage={cpuUsage} cpuMaxTemp={cpuMaxTemp} processorInfo={processorInfo}/>
                 <CVerticalSpacer/>
-                <MemoryCard memoryInfo={memoryInfo}/>
+                <MemoryCard memoryInfo={memoryInfo} systemInfo={systemInfo}/>
                 <CVerticalSpacer/>
                 <StorageCard readSpeed={readSpeed} writeSpeed={writeSpeed} datasetInfo={datasetInfo}/>
                 <CVerticalSpacer/>
