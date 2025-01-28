@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { Arc, Progress } from "react-native-cool-speedometer";
 import Speedometer from "react-native-cool-speedometer/dist/Speedometer";
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
+import Svg from 'react-native-svg';
 import av from 'animate-value'
 
 export function CSpeedometerChart(props: {value: number, maxValue: number, title: string, subtitle: string}) {

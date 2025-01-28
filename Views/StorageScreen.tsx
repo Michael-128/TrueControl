@@ -5,13 +5,13 @@ import { fetchDatasetInfo, fetchPoolInfo } from "./OverviewScreen/OverviewLogic"
 import { Credentials, Storage } from "../Components/Storage/Storage";
 import { DatasetInfo } from "../Types/Intefaces/DatasetInfo";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
-import { View } from "moti";
 import { PoolInfo } from "../Types/Intefaces/PoolInfo";
 import { CProgressBar } from "../Components/Custom/CProgressBar";
 import { CDivider } from "../Components/Custom/CDivider";
 import { toSize } from "../Components/Helpers/Helpers";
 import { CGreenChip } from "../Components/Custom/Chip/CChip";
 import { CIconHeader } from "../Components/Typography/CIconHeader";
+import { View } from "react-native";
 
 interface StorageInfo {
     pool: PoolInfo

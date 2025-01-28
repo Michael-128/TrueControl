@@ -16,7 +16,6 @@ import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo";
 import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "./OverviewLogic";
 import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo";
 import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo";
-import { OverviewSkeleton } from "./OverviewSkeleton";
 import { toTime } from "../../Components/Helpers/Helpers";
 
 
@@ -89,10 +88,6 @@ export default function OverviewScreen() {
         }, 1500)
         return () => clearInterval(intervalID)
     }, [credentials])
-
-    if(!isLoaded()) return (
-        <OverviewSkeleton/>
-    )
 
     return (
         <BaseScreen>
