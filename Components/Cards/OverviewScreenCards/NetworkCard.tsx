@@ -26,10 +26,10 @@ export default function NetworkCard(props: {networkInterfaceInfo: NetworkInterfa
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                       <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Icon style={{height: 24, width: 24, color: theme["color-info-500"]}} name="arrow-up" pack="material"/>
-                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.sent_bytes)}/s</Text>
+                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.sent_bytes_rate)}/s</Text>
                       </View>
                       <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes)}/s</Text>
+                        <Text category="h6" style={{fontWeight: "normal"}}>{toSize(networkInterface.received_bytes_rate)}/s</Text>
                         <Icon style={{height: 24, width: 24, color: theme["color-success-600"]}} name="arrow-down" pack="material"/>
                       </View>
                     </View>

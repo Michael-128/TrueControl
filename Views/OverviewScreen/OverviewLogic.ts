@@ -52,7 +52,7 @@ export function fetchWSInfo(stats: any): {
 } {   
     return {
         cpuUsage: stats.fields.cpu.average.usage as number,
-        cpuMaxTemp: Math.max(...Object.values<number>(stats.fields.cpu.temperature_celsius)),
+        cpuMaxTemp: (stats.fields.cpu.temperature_celsius) ? Math.max(...Object.values<number>(stats.fields.cpu.temperature_celsius)) : 0,
         memoryInfo: stats.fields.memory,
         readSpeed: stats.fields.disks.read_bytes,
         writeSpeed: stats.fields.disks.write_bytes,

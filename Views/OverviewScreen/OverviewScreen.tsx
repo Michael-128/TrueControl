@@ -76,7 +76,10 @@ export default function OverviewScreen() {
 
         const intervalID = setInterval(() => {
             TrueNasWSStatic.nextStats = (stats: any) => {
+                if(!stats) return
+
                 const wsInfo = fetchWSInfo(stats)
+
                 setCpuUsage(wsInfo.cpuUsage)
                 setCpuMaxTemp(wsInfo.cpuMaxTemp)
                 setMemoryInfo(wsInfo.memoryInfo)
