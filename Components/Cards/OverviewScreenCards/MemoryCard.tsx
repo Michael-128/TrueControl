@@ -42,22 +42,23 @@ export default function MemoryCard(props: {memoryInfo: MemoryInfo | null, system
                 <View style={{
                     justifyContent: "space-evenly",
                 }}>
-                    <CLabel name="Total" value={toSize(totalMemory)}/>
-                    
+                    <View style={{flexDirection: "row", alignItems: 'center', marginBottom: 4}}>
+                        <Text style={{fontWeight: 'bold'}}>{toSize(totalMemory)} </Text><Text>Total</Text>
+                    </View>
 
                     <View style={{flexDirection: "row", alignItems: 'center'}}>
                         <CColoredDot color={theme["color-primary-600"]}/>
-                        <CLabel name="ZFS Cache" value={toSize(arcMemory)}/>
+                        <Text style={{fontWeight: 'bold'}}>{toSize(arcMemory)} </Text><Text>Cache</Text>
                     </View>
 
                     <View style={{flexDirection: "row", alignItems: 'center'}}>
                         <CColoredDot color={theme["color-primary-400"]}/>
-                        <CLabel name="Services" value={toSize(appsMemory)} />
+                        <Text style={{fontWeight: 'bold'}}>{toSize(appsMemory)} </Text><Text>Apps</Text>
                     </View>
 
                     <View style={{flexDirection: "row", alignItems: 'center'}}>
                         <CColoredDot color={theme["color-primary-300"]}/>
-                        <CLabel name="Free" value={toSize(freeMemory)} />    
+                        <Text style={{fontWeight: 'bold'}}>{toSize(freeMemory)} </Text><Text>Free</Text>
                     </View>
                 </View>
                 <View>

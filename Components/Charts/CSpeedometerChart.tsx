@@ -6,6 +6,7 @@ import Speedometer from "react-native-cool-speedometer/dist/Speedometer";
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 import Svg from 'react-native-svg';
 import av from 'animate-value'
+import { DefaultTheme } from "@react-navigation/native";
 
 export function CSpeedometerChart(props: {value: number, maxValue: number, title: string, subtitle: string}) {
     const theme = useTheme()
@@ -34,7 +35,7 @@ export function CSpeedometerChart(props: {value: number, maxValue: number, title
             <Arc arcWidth={10} color={theme["color-primary-500"]} opacity={.1}/>
             <Progress arcWidth={10} color={theme["color-primary-500"]} />
             <View style={{alignSelf: "center", height: "100%", justifyContent: "center", alignItems: "center"}}>
-                <Text category="s1">{props.title}</Text>
+                <Text category="s1" style={{color: DefaultTheme.colors.label, fontWeight: 'normal', fontSize: 14}}>{props.title}</Text>
                 <Text category="s2">{props.subtitle}</Text>
                 <Text>{" "}</Text>
             </View>
