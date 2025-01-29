@@ -72,10 +72,10 @@ export function StorageScreen() {
                                         </CIconHeader>
                                         <CGreenChip text={info.pool.status}/>
                                     </View>
+                                    
+                                    <CVerticalSpacer margin={3}/>
                                     <CDivider/>
-
-                                    <Text category="h5">Usage</Text>
-                                    <CVerticalSpacer margin={5}/>
+                                    <CVerticalSpacer margin={3}/>
 
                                     <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
                                         <Text category="h6" style={{fontWeight:"normal"}}>{toSize(info.poolDataset.used.parsed + info.poolDataset.available.parsed)} Total</Text>
