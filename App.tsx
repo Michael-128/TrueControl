@@ -43,7 +43,7 @@ function MainArea(props: {children: JSX.Element | JSX.Element[]}) {
       <IconRegistry icons={MaterialIconsPack} />
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <ApplicationProvider {...eva} theme={eva.light}>
-          <SafeAreaView style={{height: "100%", backgroundColor: DefaultTheme.colors.background}}>
+          <SafeAreaView style={{height: "100%", backgroundColor: "white"}}>
             {props.children}
           </SafeAreaView>
         </ApplicationProvider>
