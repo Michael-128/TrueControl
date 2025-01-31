@@ -7,15 +7,17 @@ import { CredentialsCard } from "../Components/Cards/ConnectivityScreenCards/Cre
 import { ConnectionStatusCard } from "../Components/Cards/ConnectivityScreenCards/ConnectionsStatusCard";
 import base64 from "react-native-base64";
 import { Storage } from "../Components/Storage/Storage";
-import { useConnectivityViewModel } from "../ViewModels/ConnectivityViewModel";
+import useConnectivityViewModel from "../ViewModels/ConnectivityViewModel";
+import { useTrueNas } from "../Hooks/useTrueNas";
 
 export function ConnectivityView(props: {isConnected?: (isConnected: boolean) => void}) {
-    const { connectionStatus, handleSave } = useConnectivityViewModel(props.isConnected)
+    const tn = useTrueNas();
+    const { handleSave } = useConnectivityViewModel()
 
     return (
         <BaseView>
             <Layout style={{backgroundColor: "transparent"}}>
-                <ConnectionStatusCard connectionStatus={connectionStatus}/>
+                <ConnectionStatusCard connectionStatus={tn.connectionStatus}/>
                 <CVerticalSpacer/>
                 <CredentialsCard onSave={handleSave}/>
             </Layout>

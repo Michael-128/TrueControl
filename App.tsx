@@ -18,6 +18,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
 import { StorageView } from './Views/StorageView';
+import { TrueNasProvider } from './Contexts/TrueNasContext';
 
 const { Navigator, Screen } = createDrawerNavigator()
 
@@ -43,9 +44,11 @@ function MainArea(props: {children: JSX.Element | JSX.Element[]}) {
       <IconRegistry icons={MaterialIconsPack} />
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <ApplicationProvider {...eva} theme={eva.light}>
-          <SafeAreaView style={{height: "100%", backgroundColor: "white"}}>
-            {props.children}
-          </SafeAreaView>
+          <TrueNasProvider>
+            <SafeAreaView style={{height: "100%", backgroundColor: "white"}}>
+              {props.children}
+            </SafeAreaView>
+          </TrueNasProvider>
         </ApplicationProvider>
       </ThemeContext.Provider>
     </>

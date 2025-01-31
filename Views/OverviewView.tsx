@@ -8,25 +8,24 @@ import NetworkCard from "../Components/Cards/OverviewScreenCards/NetworkCard";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
 import { BaseView } from "./BaseView";
 import useOverviewViewModel from "../ViewModels/OverviewViewModel";
+import { useTrueNas } from "../Hooks/useTrueNas";
 
 
 export default function OverviewView() {
-    const {
-        systemInfo, processorInfo, memoryInfo, datasetInfo, networkInterfaceInfo, cpuUsage, cpuMaxTemp, readSpeed, writeSpeed
-    } = useOverviewViewModel()
+    const tn = useTrueNas();
     
     return (
         <BaseView>
             <Layout style={{backgroundColor: "transparent"}}>
-                <SystemCard systemInfo={systemInfo}/>
+                <SystemCard systemInfo={tn.systemInfo}/>
                 <CVerticalSpacer/>
-                <ProcessorCard cpuUsage={cpuUsage} cpuMaxTemp={cpuMaxTemp} processorInfo={processorInfo}/>
+                <ProcessorCard cpuUsage={tn.cpuUsage} cpuMaxTemp={tn.cpuMaxTemp} processorInfo={tn.processorInfo}/>
                 <CVerticalSpacer/>
-                <MemoryCard memoryInfo={memoryInfo} systemInfo={systemInfo}/>
+                <MemoryCard memoryInfo={tn.memoryInfo} systemInfo={tn.systemInfo}/>
                 <CVerticalSpacer/>
-                <StorageCard readSpeed={readSpeed} writeSpeed={writeSpeed} datasetInfo={datasetInfo}/>
+                <StorageCard readSpeed={tn.readSpeed} writeSpeed={tn.writeSpeed} datasetInfo={tn.datasetInfo}/>
                 <CVerticalSpacer/>
-                <NetworkCard networkInterfaceInfo={networkInterfaceInfo}/>
+                <NetworkCard networkInterfaceInfo={tn.networkInterfaceInfo}/>
             </Layout>
         </BaseView>
     )
