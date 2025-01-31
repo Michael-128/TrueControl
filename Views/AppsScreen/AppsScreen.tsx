@@ -1,5 +1,5 @@
 import { Icon, Input, useTheme } from "@ui-kitten/components";
-import { BaseScreen } from "../BaseScreen";
+import { BaseView } from "../BaseView";
 import { useEffect, useState } from "react";
 import { getFetch } from "../BaseLogic/BaseLogic";
 import { Credentials, Storage } from "../../Components/Storage/Storage";
@@ -46,7 +46,7 @@ export function AppsScreen() {
     }, [credentials])
 
     return (
-        <BaseScreen>
+        <BaseView>
             <Input value={appSearch} onChangeText={setAppSearch} autoCapitalize="none" placeholder="Search" accessoryLeft={SearchIcon}/>
 
             <>
@@ -60,6 +60,6 @@ export function AppsScreen() {
                     })
                 }
             </>
-        </BaseScreen>
+        </BaseView>
     )
 }

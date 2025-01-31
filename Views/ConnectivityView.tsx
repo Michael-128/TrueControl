@@ -1,5 +1,5 @@
 import { Layout } from "@ui-kitten/components";
-import { BaseScreen } from "./BaseScreen";
+import { BaseView } from "./BaseView";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
 import { useEffect, useState } from "react";
 import { ConnectionStatus } from "../Types/Enums/ConnectionStatus";
@@ -13,12 +13,12 @@ export function ConnectivityView(props: {isConnected?: (isConnected: boolean) =>
     const { connectionStatus, handleSave } = useConnectivityViewModel(props.isConnected)
 
     return (
-        <BaseScreen>
+        <BaseView>
             <Layout style={{backgroundColor: "transparent"}}>
                 <ConnectionStatusCard connectionStatus={connectionStatus}/>
                 <CVerticalSpacer/>
                 <CredentialsCard onSave={handleSave}/>
             </Layout>
-        </BaseScreen>
+        </BaseView>
     )
 }

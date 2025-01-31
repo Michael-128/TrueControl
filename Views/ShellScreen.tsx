@@ -1,5 +1,5 @@
 import { Input, Text } from "@ui-kitten/components";
-import { BaseScreen } from "./BaseScreen";
+import { BaseView } from "./BaseView";
 import { useEffect, useState } from "react";
 import { TrueNasWSStatic } from "../Components/Helpers/TrueNasWS";
 import { ScrollView } from "react-native-gesture-handler";
@@ -23,7 +23,7 @@ export function ShellScreen() {
     }, [])
 
     return (
-        <BaseScreen>
+        <BaseView>
             <View style={{flexDirection: "column"}}>
                 <ScrollView contentContainerStyle={{flex: 1, height: "20%"}} style={{width: "100%", backgroundColor: "black", padding: 10,}}>
                     {
@@ -34,6 +34,6 @@ export function ShellScreen() {
                 </ScrollView>
                 <Input/>
             </View>
-        </BaseScreen>
+        </BaseView>
     )
 }

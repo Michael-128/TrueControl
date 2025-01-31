@@ -6,7 +6,7 @@ import MemoryCard from "../../Components/Cards/OverviewScreenCards/MemoryCard";
 import StorageCard from "../../Components/Cards/OverviewScreenCards/StorageCard";
 import NetworkCard from "../../Components/Cards/OverviewScreenCards/NetworkCard";
 import { CVerticalSpacer } from "../../Components/Custom/CVerticalSpacer";
-import { BaseScreen } from "../BaseScreen";
+import { BaseView } from "../BaseView";
 import { useEffect, useState } from "react";
 import { Credentials, Storage } from "../../Components/Storage/Storage";
 import { SystemInfo } from "../../Types/Intefaces/SystemInfo";
@@ -93,7 +93,7 @@ export default function OverviewScreen() {
     }, [credentials])
 
     return (
-        <BaseScreen>
+        <BaseView>
             <Layout style={{backgroundColor: "transparent"}}>
                 <SystemCard systemInfo={systemInfo}/>
                 <CVerticalSpacer/>
@@ -105,6 +105,6 @@ export default function OverviewScreen() {
                 <CVerticalSpacer/>
                 <NetworkCard networkInterfaceInfo={networkInterfaceInfo}/>
             </Layout>
-        </BaseScreen>
+        </BaseView>
     )
 }

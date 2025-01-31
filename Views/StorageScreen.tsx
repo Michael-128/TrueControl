@@ -1,5 +1,5 @@
 import { Card, Text, useTheme } from "@ui-kitten/components";
-import { BaseScreen } from "./BaseScreen";
+import { BaseView } from "./BaseView";
 import { useEffect, useState } from "react";
 import { fetchDatasetInfo, fetchPoolInfo } from "./OverviewScreen/OverviewLogic";
 import { Credentials, Storage } from "../Components/Storage/Storage";
@@ -59,7 +59,7 @@ export function StorageScreen() {
     }, [credentials])
 
     return (
-        <BaseScreen>
+        <BaseView>
             <>
                {
                     storageInfo.flatMap(info => {
@@ -99,7 +99,7 @@ export function StorageScreen() {
                     })
                }
             </>
-        </BaseScreen>
+        </BaseView>
     )
 }
 
