@@ -5,7 +5,7 @@ import 'react-native-get-random-values'
 import React, { useContext, useEffect, useState } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Layout, Text, Button, IconRegistry, useTheme } from '@ui-kitten/components';
-import OverviewScreen from './Views/OverviewScreen/OverviewScreen';
+import OverviewView from './Views/OverviewView';
 import { MaterialIconsPack } from './Icons/material-icons';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -23,7 +23,7 @@ const { Navigator, Screen } = createDrawerNavigator()
 
 const DrawerNavigator = () => {
   return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
-    <Screen name='Overview' component={OverviewScreen}/>
+    <Screen name='Overview' component={OverviewView}/>
     <Screen name='Storage' component={StorageView}/>
     <Screen name='Apps' component={AppsScreen}/>
     <Screen name='Connectivity' component={ConnectivityView}/>

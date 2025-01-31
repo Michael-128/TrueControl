@@ -1,26 +1,14 @@
-import { Layout } from "@ui-kitten/components";
+import { useEffect, useState } from "react"
+import { Credentials, Storage } from "../Components/Storage/Storage"
+import { SystemInfo } from "../Models/SystemInfo"
+import { ProcessorInfo } from "../Models/ProcessorInfo"
+import { MemoryInfo } from "../Models/MemoryInfo"
+import { DatasetInfo } from "../Models/DatasetInfo"
+import { NetworkInterfaceInfo } from "../Models/NetworkInterfaceInfo"
+import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "../Views/OverviewScreen/OverviewLogic"
+import { TrueNasWSStatic } from "../Components/Helpers/TrueNasWS"
 
-import SystemCard from "../../Components/Cards/OverviewScreenCards/SystemCard";
-import ProcessorCard from "../../Components/Cards/OverviewScreenCards/ProcessorCard";
-import MemoryCard from "../../Components/Cards/OverviewScreenCards/MemoryCard";
-import StorageCard from "../../Components/Cards/OverviewScreenCards/StorageCard";
-import NetworkCard from "../../Components/Cards/OverviewScreenCards/NetworkCard";
-import { CVerticalSpacer } from "../../Components/Custom/CVerticalSpacer";
-import { BaseView } from "../BaseView";
-import { useEffect, useState } from "react";
-import { Credentials, Storage } from "../../Components/Storage/Storage";
-import { SystemInfo } from "../../Models/SystemInfo";
-import { TrueNasWS, TrueNasWSStatic } from "../../Components/Helpers/TrueNasWS";
-import { ProcessorInfo } from "../../Models/ProcessorInfo";
-import { MemoryInfo } from "../../Models/MemoryInfo";
-import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "./OverviewLogic";
-import { DatasetInfo } from "../../Models/DatasetInfo";
-import { NetworkInterfaceInfo } from "../../Models/NetworkInterfaceInfo";
-import { toTime } from "../../Components/Helpers/Helpers";
-
-
-export default function OverviewScreen() {
-
+function useOverviewViewModel() {
     const [credentials, setCredentials] = useState<Credentials | null>(null)
 
     const [systemInfo, setSytemInfo] = useState<SystemInfo | null>(null)
@@ -92,19 +80,19 @@ export default function OverviewScreen() {
         return () => clearInterval(intervalID)
     }, [credentials])
 
-    return (
-        <BaseView>
-            <Layout style={{backgroundColor: "transparent"}}>
-                <SystemCard systemInfo={systemInfo}/>
-                <CVerticalSpacer/>
-                <ProcessorCard cpuUsage={cpuUsage} cpuMaxTemp={cpuMaxTemp} processorInfo={processorInfo}/>
-                <CVerticalSpacer/>
-                <MemoryCard memoryInfo={memoryInfo} systemInfo={systemInfo}/>
-                <CVerticalSpacer/>
-                <StorageCard readSpeed={readSpeed} writeSpeed={writeSpeed} datasetInfo={datasetInfo}/>
-                <CVerticalSpacer/>
-                <NetworkCard networkInterfaceInfo={networkInterfaceInfo}/>
-            </Layout>
-        </BaseView>
-    )
+    return {
+        systemInfo,
+        processorInfo,
+        memoryInfo,
+        datasetInfo,
+        networkInterfaceInfo,
+        cpuUsage,
+        cpuMaxTemp,
+        readSpeed,
+        writeSpeed,
+        isLoaded
+    }
 }
+
+export default useOverviewViewModel
+
