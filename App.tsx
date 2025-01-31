@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CDrawer } from './Components/Navigation/CDrawer';
 import { SafeAreaView, View, useColorScheme } from 'react-native';
-import { ConnectivityScreen } from './Views/ConnectivityScreen';
+import { ConnectivityView } from './Views/ConnectivityView';
 import { AppsScreen } from './Views/AppsScreen/AppsScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
@@ -26,7 +26,7 @@ const DrawerNavigator = () => {
     <Screen name='Overview' component={OverviewScreen}/>
     <Screen name='Storage' component={StorageScreen}/>
     <Screen name='Apps' component={AppsScreen}/>
-    <Screen name='Connectivity' component={ConnectivityScreen}/>
+    <Screen name='Connectivity' component={ConnectivityView}/>
   </Navigator>)
 };
 
@@ -82,7 +82,7 @@ export default () => {
     return (
       <MainArea>
         <GestureHandlerRootView>
-         <ConnectivityScreen isConnected={(isConnected: boolean) => {if(isConnected) setIsURL(true)}}/>
+         <ConnectivityView isConnected={(isConnected: boolean) => {if(isConnected) setIsURL(true)}}/>
         </GestureHandlerRootView>
       </MainArea>
     )
