@@ -1,51 +1,65 @@
-import { useEffect, useState } from "react"
-import { StorageInfo } from "../Models/StorageInfo"
-import { Credentials, Storage } from "../Components/Storage/Storage"
-import { fetchDatasetInfo, fetchPoolInfo } from "../Views/OverviewScreen/OverviewLogic"
+// ConnectivityViewModel.js
 
+import { useEffect, useState } from "react";
+import { ConnectionStatus } from "../Types/Enums/ConnectionStatus";
+import base64 from "react-native-base64";
+import { Storage } from "../Components/Storage/Storage";
 
-export function useStorageViewModel() {
-    const [credentials, setCredentials] = useState<Credentials | null>(null)
-    const [storageInfo, setStorageInfo] = useState<StorageInfo[]>([])
+function useConnectivityViewModel(isConnectedCallback?: (isConnected: boolean) => void) {
+    const [connectionStatus, setConnectionStatus] = useState(ConnectionStatus.DISCONNECTED);
 
-    async function getCredentials() {
-        const cred = await Storage.getCredentials()
-        if(cred) setCredentials(cred)
+    async function handleSave(url: string, username: string, password: string) {
+        if (await checkConnectivity(url, username, password)) {
+            setConnectionStatus(ConnectionStatus.CONNECTED);
+            Storage.saveCredentials(url, username, password);
+        } else {
+            setConnectionStatus(ConnectionStatus.DISCONNECTED);
+        }
     }
 
-    async function fetchAllInfo() {
-        const datasets = fetchDatasetInfo(credentials!.url, credentials!.token)
-        const pools = fetchPoolInfo(credentials!.url, credentials!.token)
+    async function checkConnectivity(url: string, username: string, password: string) {
+        const authString = "Basic " + base64.encode(`${username}:${password}`);
 
-        Promise.all([datasets, pools]).then(([datasets, pools]) => {
-            const info: StorageInfo[] = []
-
-            pools.forEach(pool => {
-                info.push({
-                    pool: pool,
-                    poolDataset: datasets.filter(dataset => dataset.mountpoint == pool.path)[0]
-                })
-            })
-
-            setStorageInfo(info)
-        })
+        try {
+            const res = await fetch(`${url}/api/v2.0/auth/check_user`, {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: { Authorization: authString },
+            });
+            return await res.json();
+        } catch {
+            return false;
+        }
     }
 
     useEffect(() => {
-        getCredentials()
-    }, [])
-    
-    useEffect(() => {
-        if(!credentials) return
+        async function getStatus() {
+            const credentials = await Storage.getCredentials();
 
-        fetchAllInfo()
-    }, [credentials])
+            if (!credentials) {
+                setConnectionStatus(ConnectionStatus.DISCONNECTED);
+                return;
+            }
+
+            if (await checkConnectivity(credentials.url, credentials.username, credentials.password)) {
+                setConnectionStatus(ConnectionStatus.CONNECTED);
+            } else {
+                setConnectionStatus(ConnectionStatus.DISCONNECTED);
+            }
+        }
+        getStatus();
+    }, []);
+
+    useEffect(() => {
+        if (isConnectedCallback) {
+            isConnectedCallback(connectionStatus === ConnectionStatus.CONNECTED);
+        }
+    }, [connectionStatus]);
 
     return {
-        storageInfo
-    }
+        connectionStatus,
+        handleSave,
+    };
 }
 
-  
-  
-  
+export default useConnectivityViewModel;

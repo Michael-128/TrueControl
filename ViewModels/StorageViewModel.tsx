@@ -4,7 +4,7 @@ import { Credentials, Storage } from "../Components/Storage/Storage"
 import { fetchDatasetInfo, fetchPoolInfo } from "../Views/OverviewScreen/OverviewLogic"
 
 
-export function useStorageViewModel() {
+function useStorageViewModel() {
     const [credentials, setCredentials] = useState<Credentials | null>(null)
     const [storageInfo, setStorageInfo] = useState<StorageInfo[]>([])
 
@@ -46,6 +46,6 @@ export function useStorageViewModel() {
     }
 }
 
-  
+export default useStorageViewModel
   
   

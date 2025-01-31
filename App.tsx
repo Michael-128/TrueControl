@@ -13,7 +13,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CDrawer } from './Components/Navigation/CDrawer';
 import { SafeAreaView, View, useColorScheme } from 'react-native';
 import { ConnectivityView } from './Views/ConnectivityView';
-import { AppsScreen } from './Views/AppsScreen/AppsScreen';
+import { AppsView } from './Views/AppsView';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
@@ -25,7 +25,7 @@ const DrawerNavigator = () => {
   return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewView}/>
     <Screen name='Storage' component={StorageView}/>
-    <Screen name='Apps' component={AppsScreen}/>
+    <Screen name='Apps' component={AppsView}/>
     <Screen name='Connectivity' component={ConnectivityView}/>
   </Navigator>)
 };
