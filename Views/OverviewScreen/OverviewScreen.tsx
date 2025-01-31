@@ -9,13 +9,13 @@ import { CVerticalSpacer } from "../../Components/Custom/CVerticalSpacer";
 import { BaseView } from "../BaseView";
 import { useEffect, useState } from "react";
 import { Credentials, Storage } from "../../Components/Storage/Storage";
-import { SystemInfo } from "../../Types/Intefaces/SystemInfo";
+import { SystemInfo } from "../../Models/SystemInfo";
 import { TrueNasWS, TrueNasWSStatic } from "../../Components/Helpers/TrueNasWS";
-import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo";
-import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo";
+import { ProcessorInfo } from "../../Models/ProcessorInfo";
+import { MemoryInfo } from "../../Models/MemoryInfo";
 import { fetchDatasetInfo, fetchInfo, fetchWSInfo } from "./OverviewLogic";
-import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo";
-import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo";
+import { DatasetInfo } from "../../Models/DatasetInfo";
+import { NetworkInterfaceInfo } from "../../Models/NetworkInterfaceInfo";
 import { toTime } from "../../Components/Helpers/Helpers";
 
 

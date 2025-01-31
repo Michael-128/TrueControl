@@ -3,7 +3,7 @@ import { BaseView } from "../BaseView";
 import { useEffect, useState } from "react";
 import { getFetch } from "../BaseLogic/BaseLogic";
 import { Credentials, Storage } from "../../Components/Storage/Storage";
-import { AppInfo } from "../../Types/Intefaces/AppInfo";
+import { AppInfo } from "../../Models/AppInfo";
 import { View } from "react-native";
 import { AppCard } from "../../Components/Cards/AppCard";
 

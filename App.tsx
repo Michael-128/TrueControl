@@ -17,14 +17,14 @@ import { AppsScreen } from './Views/AppsScreen/AppsScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Storage } from './Components/Storage/Storage';
 import { ThemeContext } from './Contexts/ThemeContext';
-import { StorageScreen } from './Views/StorageScreen';
+import { StorageView } from './Views/StorageView';
 
 const { Navigator, Screen } = createDrawerNavigator()
 
 const DrawerNavigator = () => {
   return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewScreen}/>
-    <Screen name='Storage' component={StorageScreen}/>
+    <Screen name='Storage' component={StorageView}/>
     <Screen name='Apps' component={AppsScreen}/>
     <Screen name='Connectivity' component={ConnectivityView}/>
   </Navigator>)

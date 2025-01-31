@@ -4,12 +4,12 @@ import { View } from "react-native"
 import { CLabel } from "../../Typography/CLabel"
 import { CPieChart } from "../../Charts/CPieChart"
 import { CColoredDot } from "../../Typography/CColoredDot"
-import { MemoryInfo } from "../../../Types/Intefaces/MemoryInfo"
+import { MemoryInfo } from "../../../Models/MemoryInfo"
 import { useEffect, useState } from "react"
 import { toSize } from "../../Helpers/Helpers"
 import { CDivider } from "../../Custom/CDivider"
 import { BaseOverviewCard } from "./BaseOverviewCard"
-import { SystemInfo } from "../../../Types/Intefaces/SystemInfo"
+import { SystemInfo } from "../../../Models/SystemInfo"
 
 
 export default function MemoryCard(props: {memoryInfo: MemoryInfo | null, systemInfo: SystemInfo | null}) {

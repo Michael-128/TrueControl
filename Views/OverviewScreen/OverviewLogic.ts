@@ -1,9 +1,9 @@
-import { DatasetInfo } from "../../Types/Intefaces/DatasetInfo"
-import { MemoryInfo } from "../../Types/Intefaces/MemoryInfo"
-import { NetworkInterfaceInfo } from "../../Types/Intefaces/NetworkInterfaceInfo"
-import { PoolInfo } from "../../Types/Intefaces/PoolInfo"
-import { ProcessorInfo } from "../../Types/Intefaces/ProcessorInfo"
-import { SystemInfo } from "../../Types/Intefaces/SystemInfo"
+import { DatasetInfo } from "../../Models/DatasetInfo"
+import { MemoryInfo } from "../../Models/MemoryInfo"
+import { NetworkInterfaceInfo } from "../../Models/NetworkInterfaceInfo"
+import { PoolInfo } from "../../Models/PoolInfo"
+import { ProcessorInfo } from "../../Models/ProcessorInfo"
+import { SystemInfo } from "../../Models/SystemInfo"
 import { getFetch } from "../BaseLogic/BaseLogic"
 
 

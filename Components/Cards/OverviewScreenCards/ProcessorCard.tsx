@@ -3,7 +3,7 @@ import { CIconHeader } from "../../Typography/CIconHeader"
 import { CProgressChart } from "../../Charts/CProgressChart";
 import { CLabel } from "../../Typography/CLabel";
 import { View } from "react-native";
-import { ProcessorInfo } from "../../../Types/Intefaces/ProcessorInfo";
+import { ProcessorInfo } from "../../../Models/ProcessorInfo";
 import { useEffect, useState } from "react";
 import { CDivider } from "../../Custom/CDivider";
 import { BaseOverviewCard } from "./BaseOverviewCard";

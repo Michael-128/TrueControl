@@ -12,8 +12,8 @@ import { CSpeedometerChart } from "../../Charts/CSpeedometerChart"
 import { CDivider } from "../../Custom/CDivider"
 import { CVerticalSpacer } from "../../Custom/CVerticalSpacer"
 import { CProgressBar } from "../../Custom/CProgressBar"
-import { PoolInfo } from "../../../Types/Intefaces/PoolInfo"
-import { DatasetInfo } from "../../../Types/Intefaces/DatasetInfo"
+import { PoolInfo } from "../../../Models/PoolInfo"
+import { DatasetInfo } from "../../../Models/DatasetInfo"
 import { BaseOverviewCard } from "./BaseOverviewCard"
 
 export default function StorageCard(props: {readSpeed: number, writeSpeed: number, datasetInfo: DatasetInfo[]}) {

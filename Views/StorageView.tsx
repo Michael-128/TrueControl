@@ -1,62 +1,16 @@
 import { Card, Text, useTheme } from "@ui-kitten/components";
 import { BaseView } from "./BaseView";
-import { useEffect, useState } from "react";
-import { fetchDatasetInfo, fetchPoolInfo } from "./OverviewScreen/OverviewLogic";
-import { Credentials, Storage } from "../Components/Storage/Storage";
-import { DatasetInfo } from "../Types/Intefaces/DatasetInfo";
 import { CVerticalSpacer } from "../Components/Custom/CVerticalSpacer";
-import { PoolInfo } from "../Types/Intefaces/PoolInfo";
 import { CProgressBar } from "../Components/Custom/CProgressBar";
 import { CDivider } from "../Components/Custom/CDivider";
 import { toSize } from "../Components/Helpers/Helpers";
 import { CGreenChip } from "../Components/Custom/Chip/CChip";
 import { CIconHeader } from "../Components/Typography/CIconHeader";
 import { View } from "react-native";
+import { useStorageViewModel } from "../ViewModels/StorageViewModel";
 
-interface StorageInfo {
-    pool: PoolInfo
-    poolDataset: DatasetInfo
-}
-
-export function StorageScreen() {
-    const theme = useTheme()
-
-    const [credentials, setCredentials] = useState<Credentials | null>(null)
-
-    async function getCredentials() {
-        const cred = await Storage.getCredentials()
-        if(cred) setCredentials(cred)
-    }
-
-    useEffect(() => {
-        getCredentials()
-    }, [])
-
-    const [storageInfo, setStorageInfo] = useState<StorageInfo[]>([])
-
-    async function fetchAllInfo() {
-        const datasets = fetchDatasetInfo(credentials!.url, credentials!.token)
-        const pools = fetchPoolInfo(credentials!.url, credentials!.token)
-
-        Promise.all([datasets, pools]).then(([datasets, pools]) => {
-            const info: StorageInfo[] = []
-
-            pools.forEach(pool => {
-                info.push({
-                    pool: pool,
-                    poolDataset: datasets.filter(dataset => dataset.mountpoint == pool.path)[0]
-                })
-            })
-
-            setStorageInfo(info)
-        })
-    }
-    
-    useEffect(() => {
-        if(!credentials) return
-
-        fetchAllInfo()
-    }, [credentials])
+export function StorageView() {
+    const { storageInfo } = useStorageViewModel()
 
     return (
         <BaseView>

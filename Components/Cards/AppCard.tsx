@@ -5,7 +5,7 @@ import { Image } from "react-native";
 import { CBlueChip, CGreenChip, CRedChip } from "../Custom/Chip/CChip";
 import { CHorizontalSpacer } from "../Custom/CHorizontalSpacer";
 import { CDivider } from "../Custom/CDivider";
-import { AppInfo } from "../../Types/Intefaces/AppInfo";
+import { AppInfo } from "../../Models/AppInfo";
 import { useEffect, useState } from "react";
 import { CLabel } from "../Typography/CLabel";
 import { postScaleReplicas } from "../../Views/AppsScreen/AppsLogic";
