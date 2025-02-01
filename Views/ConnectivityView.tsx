@@ -10,7 +10,7 @@ import { Storage } from "../Components/Storage/Storage";
 import useConnectivityViewModel from "../ViewModels/ConnectivityViewModel";
 import { useTrueNas } from "../Hooks/useTrueNas";
 
-export function ConnectivityView(props: {isConnected?: (isConnected: boolean) => void}) {
+export function ConnectivityView() {
     const tn = useTrueNas();
     const { handleSave } = useConnectivityViewModel()
 

@@ -47,7 +47,6 @@ export const TrueNasContext = createContext<TrueNasContextType>({
 
 export function TrueNasProvider({ children }: { children: ReactNode }) {
     const tnService = TrueNasService.static;
-    const tnWS = TrueNasWSStatic;
 
     const [connectionStatus, setConnectionStatus] = useState(ConnectionStatus.DISCONNECTED);
     const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null)
@@ -64,10 +63,6 @@ export function TrueNasProvider({ children }: { children: ReactNode }) {
     const [writeSpeed, setWriteSpeed] = useState(0)
     
     const [isWSDataLoaded, setIsWSDataLoaded] = useState(false)
-
-    const updateConnectionStatus = (status: ConnectionStatus) => {
-        setConnectionStatus(status);
-    };
 
     const [conInterval, setConInterval] = useState<any>(null);
 
@@ -102,29 +97,18 @@ export function TrueNasProvider({ children }: { children: ReactNode }) {
     const [fetchInterval, setFetchInterval] = useState<any>(null);
 
     useEffect(() => {
+        if(connectionStatus === ConnectionStatus.DISCONNECTED) {
+            return () => clearInterval(fetchInterval)
+        }
+
         fetchInfo()
 
         setFetchInterval(setInterval(() => {
             fetchInfo()
-
-            tnWS.nextStats = (stats: any) => {
-                console.log(stats)
-                if(!stats) return
-    
-                const wsInfo = tnService.parseWSInfo(stats)
-    
-                setCpuUsage(wsInfo.cpuUsage)
-                setCpuMaxTemp(wsInfo.cpuMaxTemp)
-                setMemoryInfo(wsInfo.memoryInfo)
-                setReadSpeed(wsInfo.readSpeed)
-                setWriteSpeed(wsInfo.writeSpeed)
-                setNetworkInterfaceInfo(wsInfo.networkInterfaceInfo)
-                setIsWSDataLoaded(true)
-            }
         }, 1500))
-
+        
         return () => clearInterval(fetchInterval)
-    }, [])
+    }, [connectionStatus])
 
     return (
         <TrueNasContext.Provider value={{ connectionStatus, systemInfo, processorInfo, cpuUsage, cpuMaxTemp, memoryInfo, readSpeed, writeSpeed, networkInterfaceInfo, isWSDataLoaded, poolInfo, datasetInfo }}>

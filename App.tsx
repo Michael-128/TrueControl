@@ -1,100 +1,59 @@
-import 'react-native-reanimated'
-import 'react-native-gesture-handler'
-import 'react-native-get-random-values'
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
+import 'react-native-get-random-values';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text, Button, IconRegistry, useTheme } from '@ui-kitten/components';
-import OverviewView from './Views/OverviewView';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { MaterialIconsPack } from './Icons/material-icons';
-import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { CDrawer } from './Components/Navigation/CDrawer';
-import { SafeAreaView, View, useColorScheme } from 'react-native';
+import { SafeAreaView } from 'react-native';
+
+import OverviewView from './Views/OverviewView';
 import { ConnectivityView } from './Views/ConnectivityView';
 import { AppsView } from './Views/AppsView';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Storage } from './Components/Storage/Storage';
-import { ThemeContext } from './Contexts/ThemeContext';
 import { StorageView } from './Views/StorageView';
+import { CDrawer } from './Components/Navigation/CDrawer';
 import { TrueNasProvider } from './Contexts/TrueNasContext';
+import { useTrueNas } from './Hooks/useTrueNas';
+import { ConnectionStatus } from './Types/Enums/ConnectionStatus';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const { Navigator, Screen } = createDrawerNavigator()
+const { Navigator, Screen } = createDrawerNavigator();
 
-const DrawerNavigator = () => {
-  return (<Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
+const DrawerNavigator = () => (
+  <Navigator initialRouteName='Overview' drawerContent={props => <CDrawer {...props}/>}>
     <Screen name='Overview' component={OverviewView}/>
     <Screen name='Storage' component={StorageView}/>
     <Screen name='Apps' component={AppsView}/>
     <Screen name='Connectivity' component={ConnectivityView}/>
-  </Navigator>)
-};
+  </Navigator>
+);
 
-function MainArea(props: {children: JSX.Element | JSX.Element[]}) {
-  const [theme, setTheme] = useState<string>('light');
+function MainArea() {
+  const { connectionStatus } = useTrueNas();
 
-  const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(nextTheme);
-  };
-
-  return (
-    <>
-      <IconRegistry icons={MaterialIconsPack} />
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <TrueNasProvider>
-            <SafeAreaView style={{height: "100%", backgroundColor: "white"}}>
-              {props.children}
-            </SafeAreaView>
-          </TrueNasProvider>
-        </ApplicationProvider>
-      </ThemeContext.Provider>
-    </>
-  )
+  switch(connectionStatus) {
+    case ConnectionStatus.DISCONNECTED:
+    case ConnectionStatus.CONNECTING:
+      return <ConnectivityView/>
+    case ConnectionStatus.CONNECTED:
+      return <DrawerNavigator/>;
+  }
 }
 
-export default () => {
-
-  const themeContext = useContext(ThemeContext);
-  const theme = useTheme()
-
-
-  const [ isURL, setIsURL ] = useState(true)
-
-  async function checkIfURLExists() {
-    const res = await Storage.getCredentials()
-
-    if(!res) {
-      setIsURL(false)
-      return
-    }
-
-    if(!res.url.includes("https://") && !res.url.includes("http://")) {
-      setIsURL(false)
-      return
-    }
-
-    setIsURL(true)
-  }
-
-  useEffect(() => {checkIfURLExists()}, [])
-
-  if(!isURL)
-    return (
-      <MainArea>
-        <GestureHandlerRootView>
-         <ConnectivityView isConnected={(isConnected: boolean) => {if(isConnected) setIsURL(true)}}/>
-        </GestureHandlerRootView>
-      </MainArea>
-    )
-  
-  return (
-    <MainArea>
-      <NavigationContainer theme={DefaultTheme}>
-        <DrawerNavigator/>
-      </NavigationContainer>
-    </MainArea>
-  )
-};
+export default () => (
+  <TrueNasProvider>
+    <IconRegistry icons={MaterialIconsPack} />
+    <ApplicationProvider {...eva} theme={eva.light}>
+        <NavigationContainer theme={DefaultTheme}>
+          <SafeAreaView style={{height: "100%", backgroundColor: "white"}}>
+            <GestureHandlerRootView>
+              <MainArea/>
+            </GestureHandlerRootView>
+          </SafeAreaView>
+        </NavigationContainer>
+    </ApplicationProvider>
+  </TrueNasProvider>
+);
