@@ -72,17 +72,6 @@ export function TrueNasProvider({ children }: { children: ReactNode }) {
         setConnectionStatus(isConnected ? ConnectionStatus.CONNECTED : ConnectionStatus.DISCONNECTED)
     }
 
-    useEffect(() => {
-        checkConnection()
-
-        setConInterval(setInterval(() => {
-            checkConnection()
-        }, 10000))
-
-        return () => clearInterval(conInterval);
-    }, [])
-
-
     async function fetchInfo() {
         const { systemInfo, processorInfo } = await tnService.fetchSystemAndProcessorInfo();
         const datasetInfo = await tnService.fetchDatasetInfo();
@@ -94,21 +83,24 @@ export function TrueNasProvider({ children }: { children: ReactNode }) {
         setPoolInfo(poolInfo)
     }
 
-    const [fetchInterval, setFetchInterval] = useState<any>(null);
+    const [intervalIds, setIntervalIds] = useState<any[]>([])
+
+    function clearIntervals() {
+        intervalIds.forEach((id) => clearInterval(id))
+    }
+
+    function addInterval(fn: () => void, interval: number) { 
+        fn()
+        const id = window.setInterval(fn, interval)
+        setIntervalIds([...intervalIds, id])
+    }
 
     useEffect(() => {
-        if(connectionStatus === ConnectionStatus.DISCONNECTED) {
-            return () => clearInterval(fetchInterval)
-        }
+        addInterval(checkConnection, 10000)
+        addInterval(fetchInfo, 10000)
 
-        fetchInfo()
-
-        setFetchInterval(setInterval(() => {
-            fetchInfo()
-        }, 1500))
-        
-        return () => clearInterval(fetchInterval)
-    }, [connectionStatus])
+        return () => clearIntervals()
+    }, [])
 
     return (
         <TrueNasContext.Provider value={{ connectionStatus, systemInfo, processorInfo, cpuUsage, cpuMaxTemp, memoryInfo, readSpeed, writeSpeed, networkInterfaceInfo, isWSDataLoaded, poolInfo, datasetInfo }}>
